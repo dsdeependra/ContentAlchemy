@@ -2,8 +2,31 @@
 Configuration management for ContentAlchemy
 """
 import os
+from pathlib import Path
 from dataclasses import dataclass
 from typing import Optional
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+# Try multiple possible locations
+possible_env_paths = [
+    Path(__file__).parent.parent.parent / '.env',  # From src/core/config.py -> project root
+    Path.cwd() / '.env',  # Current working directory
+    Path.cwd().parent / '.env',  # Parent of current directory
+]
+
+env_loaded = False
+for env_path in possible_env_paths:
+    if env_path.exists():
+        load_dotenv(dotenv_path=env_path, override=True)
+        env_loaded = True
+        if os.getenv("DEBUG", "false").lower() == "true":
+            print(f"Loaded .env from: {env_path}")
+        break
+
+if not env_loaded:
+    # If no .env file found, try loading from current directory anyway
+    load_dotenv(override=True)
 
 
 @dataclass

@@ -1,6 +1,6 @@
-langchain==0.3.0
-langchain-openai==0.2.0
-langchain-core==0.3.0
+langchain==0.2.16
+langchain-openai==0.1.23
+langchain-core==0.2.38
 langgraph==0.2.0
 streamlit==1.39.0
 requests==2.32.0
